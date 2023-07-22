@@ -1,0 +1,21 @@
+<div class="books-list">
+    <h1 class="books-list__header">
+        {{title}}
+    </h1>
+
+
+    <div class="books-list__main">
+        <div class="books-list__main-header">
+            <p>
+                Books List
+            </p>
+            <div class="books-list__main-header-buttons">
+                <button mat-raised-button color="primary" (click)="addBook()">Add Book</button>
+                <button mat-raised-button color="primary" (click)="addList()">Add List</button>
+            </div>
+        </div>
+
+       <app-books-list [books]="data"></app-books-list>
+
+    </div>
+</div>
