@@ -7,13 +7,14 @@ import { BookService } from '../../services/book.service';
 import { UtilitiesService } from 'src/app/shared/services/utilities.service';
 import { Validators } from '@angular/forms';
 import { AddBookComponent } from '../add-book/add-book.component';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'app-books-list',
   templateUrl: './books-list.component.html',
   styleUrls: ['./books-list.component.scss'],
   standalone: true,
-  imports: [MatTableModule, CommonModule, ActionButtonsComponent]
+  imports: [MatTableModule, CommonModule, ActionButtonsComponent, MatCardModule]
 })
 export class BooksListComponent {
   bookService = inject(BookService);

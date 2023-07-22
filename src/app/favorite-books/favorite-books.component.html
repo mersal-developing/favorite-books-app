@@ -10,12 +10,16 @@
                 Books List
             </p>
             <div class="books-list__main-header-buttons">
-                <button mat-raised-button color="primary" (click)="addBook()">Add Book</button>
-                <button mat-raised-button color="primary" (click)="addList()">Add List</button>
+                <button mat-raised-button color="primary" (click)="addBook()">
+                    Add Book <mat-icon>book</mat-icon>
+                </button>
+                <button mat-raised-button color="primary" (click)="addList()">
+                    Add List<mat-icon>list</mat-icon>
+                </button>
             </div>
         </div>
 
-       <app-books-list [books]="data"></app-books-list>
+        <app-books-list [books]="data"></app-books-list>
 
     </div>
 </div>

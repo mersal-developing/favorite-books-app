@@ -42,3 +42,30 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   height: 200px;
  
 }
+
+.success-snackbar {
+  --mdc-snackbar-container-color: #21f367;
+  --mat-mdc-snack-bar-button-color: #fff;
+  --mdc-snackbar-supporting-text-color: #fff;
+
+  button {
+    border: 1px solid #fff;
+    .mdc-button__label {
+      color: #fff;
+    }
+  }
+}
+
+.error-alert {
+  --mdc-snackbar-container-color: #f32121;
+  --mat-mdc-snack-bar-button-color: #fff;
+  --mdc-snackbar-supporting-text-color: #fff;
+
+  button {
+    border: 1px solid #fff;
+    .mdc-button__label {
+      color: #fff;
+    }
+  }
+}
+
