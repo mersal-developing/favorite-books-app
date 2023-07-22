@@ -12,9 +12,9 @@ export class BookService {
   books = JSON.parse(this.booksJson);
   favBooks = this.books ? signal<Book[]>(this.books) : signal<Book[]>([]);
 
-  savedBooks = computed(() => {
+  saveBooks = computed(() => {
     const books = this.favBooks();
-    localStorage.setItem('books', JSON.stringify(books))
+    localStorage.setItem('books', JSON.stringify(books));
   })
 
   addBook(book: Book): void {
@@ -22,7 +22,7 @@ export class BookService {
     book.id = id;
 
     this.favBooks.update(books => [...books, book]);
-    this.savedBooks();
+    this.saveBooks();
     this.utilitiesService.openSnackBar('New Book added successfully', 'ok', 'success-snackbar')
   }
 
@@ -31,15 +31,15 @@ export class BookService {
     this.favBooks()[indexToUpdate] = bookToUpdate;
 
     this.favBooks.update(books => [...books]);
-    this.savedBooks();
+    this.saveBooks();
     this.utilitiesService.openSnackBar(`Book ${bookToUpdate.title} updated succesfully`, 'ok', 'success-snackbar')
 
   }
 
   deleteBook(id: string): void {
     this.favBooks.update(books => (books).filter((book) => book.id !== id));
-    this.savedBooks();
+    this.saveBooks();
     this.utilitiesService.openSnackBar(`Book deleted succesfully`, 'ok', 'error-alert')
-
   }
+
 }

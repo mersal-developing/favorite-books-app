@@ -6,7 +6,7 @@ import { ActionButtonsComponent } from '../action-buttons/action-buttons.compone
 import { BookService } from '../../services/book.service';
 import { UtilitiesService } from 'src/app/shared/services/utilities.service';
 import { Validators } from '@angular/forms';
-import { AddBookComponent } from '../add-book/add-book.component';
+import { AddItemComponent } from '../add-item/add-item.component';
 import { MatCardModule } from '@angular/material/card';
 
 @Component({
@@ -79,7 +79,7 @@ export class BooksListComponent {
             formElements: [...this.formElements],
           },
           '',
-          AddBookComponent
+          AddItemComponent
         );
 
         dialogRef.afterClosed().subscribe((res) => {

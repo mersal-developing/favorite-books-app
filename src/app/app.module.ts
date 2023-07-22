@@ -11,7 +11,7 @@ import { MatDialogComponent } from './shared/components/mat-dialog/mat-dialog.co
 
 @NgModule({
   declarations: [
-    AppComponent,        
+    AppComponent
   ],
   imports: [
     BrowserModule,

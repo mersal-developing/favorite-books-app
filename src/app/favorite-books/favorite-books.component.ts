@@ -5,28 +5,42 @@ import { MatButtonModule } from '@angular/material/button';
 import { BooksListComponent } from './components/books-list/books-list.component';
 import { BookService } from './services/book.service';
 import { UtilitiesService } from '../shared/services/utilities.service';
-import { AddBookComponent } from './components/add-book/add-book.component';
+import { AddItemComponent } from './components/add-item/add-item.component';
 import { AbstractControl, ValidationErrors, Validators } from '@angular/forms';
+import { BooksListService } from './services/books-list.service';
+import { ListsComponent } from './components/lists/lists.component';
 
 @Component({
   selector: 'app-favorite-books',
   standalone: true,
-  imports: [CommonModule, MatIconModule, MatButtonModule, BooksListComponent],
+  imports: [
+    CommonModule,
+    MatIconModule,
+    MatButtonModule,
+    BooksListComponent,
+    ListsComponent
+  ],
   templateUrl: './favorite-books.component.html',
   styleUrls: ['./favorite-books.component.scss']
 })
 export class FavoriteBooksComponent {
   title = 'My Favorite Books App';
 
-  booksService = inject(BookService);
   utilitiesService = inject(UtilitiesService);
+  booksService = inject(BookService);
+  booksListService = inject(BooksListService);
 
-  data = computed(() => {
+  books = computed(() => {
     const books = this.booksService.favBooks();
     return books;
   })
 
-  formElements = [
+  lists = computed(() => {
+    const booksLists = this.booksListService.favBooksList();
+    return booksLists;
+  })
+
+  bookFormElements = [
     {
       name: 'title',
       placeHolder: 'Book Title',
@@ -41,11 +55,19 @@ export class FavoriteBooksComponent {
     }
   ];
 
+  listFormElements = [
+    {
+      name: 'name',
+      placeHolder: 'List Name',
+    },
+
+  ];
+
   addBook() {
     const dialogRef = this.utilitiesService.openDialog({
       title: 'Add New Book',
 
-      formElements: this.formElements,
+      formElements: this.bookFormElements,
       form: {
         title: ['', Validators.required],
         year: [undefined, Validators.compose(
@@ -53,7 +75,7 @@ export class FavoriteBooksComponent {
         )],
         author_name: ['', Validators.required]
       },
-    }, '', AddBookComponent);
+    }, '', AddItemComponent);
 
     dialogRef.afterClosed().subscribe((res) => {
       res &&
@@ -70,7 +92,23 @@ export class FavoriteBooksComponent {
     return null;
   }
 
-  addList() { }
+  addList() {
+    const dialogRef = this.utilitiesService.openDialog({
+      title: 'Add New List',
+
+      formElements: this.listFormElements,
+      form: {
+        name: ['', Validators.required],
+
+      },
+    }, '', AddItemComponent);
+
+    dialogRef.afterClosed().subscribe((res) => {
+      res &&
+        this.booksListService.addList(res);
+
+    });
+  }
 
 
 }

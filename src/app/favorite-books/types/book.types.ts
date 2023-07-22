@@ -7,6 +7,6 @@ export interface Book {
 
 export interface BookList {
     name: string;
-    books: Book[];
+    id: string;
 }
 

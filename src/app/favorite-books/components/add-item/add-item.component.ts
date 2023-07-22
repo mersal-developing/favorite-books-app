@@ -9,15 +9,15 @@ import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-add-book',
-  templateUrl: './add-book.component.html',
-  styleUrls: ['./add-book.component.scss'],
+  selector: 'app-add-item',
+  templateUrl: './add-item.component.html',
+  styleUrls: ['./add-item.component.scss'],
   standalone: true,
   imports: [MatFormFieldModule, MatDialogModule, CommonModule, ReactiveFormsModule, MatInputModule, MatButtonModule]
 })
-export class AddBookComponent {
+export class AddItemComponent {
   data = inject(MAT_DIALOG_DATA);
-  dialogRef = inject(MatDialogRef<AddBookComponent>);
+  dialogRef = inject(MatDialogRef<AddItemComponent>);
   fb = inject(FormBuilder);
 
   title!: string;

@@ -1,0 +1,7 @@
+<mat-form-field>
+    <mat-label>Choose List</mat-label>
+    <mat-select (selectionChange)="changeList($event)" [(ngModel)]="selectedList">
+        <mat-option [value]="'all'">All</mat-option>
+        <mat-option *ngFor="let list of lists()" [value]="list">{{list.name}}</mat-option>
+    </mat-select>
+</mat-form-field>
