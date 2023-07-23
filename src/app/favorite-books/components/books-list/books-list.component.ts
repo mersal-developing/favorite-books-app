@@ -1,5 +1,5 @@
-import { Component, Input, Signal, inject , computed} from '@angular/core';
-import { MatTableModule } from '@angular/material/table';
+import { Component, Input, Signal, inject, computed, ViewChild } from '@angular/core';
+import { MatTable, MatTableModule } from '@angular/material/table';
 import { CommonModule } from '@angular/common';
 import { Book, TableConsts } from '../../types';
 import { ActionButtonsComponent } from '../action-buttons/action-buttons.component';
@@ -9,18 +9,31 @@ import { Validators } from '@angular/forms';
 import { AddItemComponent } from '../../../shared/components/add-item/add-item.component';
 import { MatCardModule } from '@angular/material/card';
 import { BooksListService } from '../../services/books-list.service';
+import { CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-drop';
+import { MatIconModule } from '@angular/material/icon';
+
 
 @Component({
   selector: 'app-books-list',
   templateUrl: './books-list.component.html',
   styleUrls: ['./books-list.component.scss'],
   standalone: true,
-  imports: [MatTableModule, CommonModule, ActionButtonsComponent, MatCardModule]
+  imports: [
+    MatTableModule,
+    CommonModule,
+    ActionButtonsComponent,
+    MatCardModule,
+    DragDropModule,
+    MatIconModule
+  ]
 })
 export class BooksListComponent {
+  @ViewChild('table') table!: MatTable<Book>;
+
   bookService = inject(BookService);
   listService = inject(BooksListService);
   utilitiesService = inject(UtilitiesService);
+  dragDisabled = true;
 
   booksLists = computed(() => {
     return this.listService.favBooksList();
@@ -29,6 +42,10 @@ export class BooksListComponent {
   @Input({ required: true }) books!: Signal<Book[]>;
 
   initColumns = [
+    {
+      name: 'no',
+      value: '',
+    },
     {
       name: 'Book Title',
       value: 'title',
@@ -97,15 +114,25 @@ export class BooksListComponent {
       }
 
       case TableConsts.actionButton.addToList: {
-        !!event.value.list.name &&  this.bookService.updateBook({...event.value.book, list: event.value.list.name});
+        !!event.value.list.name && this.bookService.updateBook({ ...event.value.book, list: event.value.list.name });
         break;
       }
 
       case TableConsts.actionButton.removeFromList: {
-       this.bookService.updateBook({...event.value.book, list: ''});
-       break;
+        this.bookService.updateBook({ ...event.value.book, list: '' });
+        break;
       }
     }
+  }
+
+
+  drop(event: CdkDragDrop<Book[]>) {
+    const previousIndex = this.books().findIndex(row => row === event.item.data);
+    moveItemInArray(this.books(), previousIndex, event.currentIndex);
+    this.table.renderRows();
+
+    this.bookService.favBooks.set(this.books());
+    this.bookService.saveBooks();
   }
 
 }
