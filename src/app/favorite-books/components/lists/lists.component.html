@@ -13,7 +13,7 @@
         </mat-form-field>
 
         <div mat-dialog-actions class="action-buttons">
-            <button mat-raised-button mat-dialog-close (click)="close()" >cancel</button>
+            <button mat-raised-button mat-dialog-close (click)="close()">cancel</button>
             <button mat-raised-button mat-dialog-close cdkFocusInitial (click)="process(selectedList)"
                 color="primary">Ok</button>
         </div>
@@ -22,14 +22,17 @@
 </ng-container>
 
 <ng-template #normalList>
-    <mat-form-field>
-        <mat-label>Choose List</mat-label>
-        <mat-select (selectionChange)="changeList($event)" [(ngModel)]="selectedList">
-            <mat-option [value]="'all'">All</mat-option>
-            <mat-option *ngFor="let list of lists()" [value]="list">{{list.name}}</mat-option>
-        </mat-select>
-    </mat-form-field>
+    <div class="list-container">
+        <mat-form-field>
+            <mat-label>Choose List</mat-label>
+            <mat-select (selectionChange)="changeList($event)" [(ngModel)]="selectedList">
+                <mat-option [value]="'all'">All</mat-option>
+                <mat-option *ngFor="let list of lists()" [value]="list">{{list.name}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <ng-container *ngIf="selectedList !== 'all'">
+            <mat-icon color="warn" class="delete-icon" matTooltip="remove list" (click)="removeList(selectedList)">delete</mat-icon>
+        </ng-container>
+    </div>
 </ng-template>
-
-
-

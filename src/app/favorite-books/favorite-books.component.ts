@@ -37,11 +37,14 @@ export class FavoriteBooksComponent {
 
   books = computed(() => {
     let books;
+    console.log(this.listName())
+
     if (this.listName()) {
       books = this.booksService.getListBooks(this.listName())
     } else {
       books = this.booksService.favBooks();
     }
+
     return books;
   })
 
@@ -121,7 +124,8 @@ export class FavoriteBooksComponent {
   }
 
   filterBook(event: BookList) {
-    this.listFilter.set(event.name);
+    event && event.name && this.listFilter.set(event.name);
+    !event && this.listFilter.set('')
   }
 
 

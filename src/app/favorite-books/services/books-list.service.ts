@@ -25,4 +25,10 @@ export class BooksListService {
     this.utilitiesService.openSnackBar('New List added successfully', 'ok', 'success-snackbar')
   }
 
+  removeList(listId: string) {
+    this.favBooksList.update(lists => (lists).filter((list) => list.id !== listId));
+    this.saveLists();
+    this.utilitiesService.openSnackBar(`List deleted succesfully`, 'ok', 'error-alert')
+  }
+
 }
