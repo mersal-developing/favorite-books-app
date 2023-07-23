@@ -130,7 +130,7 @@ export class BooksListComponent {
     const previousIndex = this.books().findIndex(row => row === event.item.data);
     moveItemInArray(this.books(), previousIndex, event.currentIndex);
     this.table.renderRows();
-
+    
     this.bookService.favBooks.set(this.books());
     this.bookService.saveBooks();
   }

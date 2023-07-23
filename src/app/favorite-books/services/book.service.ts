@@ -20,7 +20,7 @@ export class BookService {
   addBook(book: Book): void {
     const id = Math.random().toString(16);
     book.id = id;
-
+    book.list = '';
     this.favBooks.update(books => [...books, book]);
     this.saveBooks();
     this.utilitiesService.openSnackBar('New Book added successfully', 'ok', 'success-snackbar')
