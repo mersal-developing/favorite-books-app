@@ -37,7 +37,6 @@ export class FavoriteBooksComponent {
 
   books = computed(() => {
     let books;
-    console.log(this.listName())
 
     if (this.listName()) {
       books = this.booksService.getListBooks(this.listName())

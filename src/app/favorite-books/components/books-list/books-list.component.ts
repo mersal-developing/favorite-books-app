@@ -97,7 +97,13 @@ export class BooksListComponent {
       }
 
       case TableConsts.actionButton.addToList: {
-        !!event.value.list.name &&  this.bookService.updateBook({...event.value.book, list: event.value.list.name})
+        !!event.value.list.name &&  this.bookService.updateBook({...event.value.book, list: event.value.list.name});
+        break;
+      }
+
+      case TableConsts.actionButton.removeFromList: {
+       this.bookService.updateBook({...event.value.book, list: ''});
+       break;
       }
     }
   }

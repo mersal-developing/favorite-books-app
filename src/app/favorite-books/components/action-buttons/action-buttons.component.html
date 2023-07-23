@@ -11,9 +11,16 @@
   </button>
 
   <ng-container *ngIf="booksLists().length > 0">
-    <button mat-menu-item (click)="onAddClick()">
+    <button mat-menu-item (click)="onAddListClick()">
       <mat-icon>list</mat-icon>
       <span>Add to list</span>
+    </button>
+  </ng-container>
+
+  <ng-container *ngIf="value.list">
+    <button mat-menu-item (click)="removeFromList()">
+      <mat-icon color="warn">delete</mat-icon>
+      <span>Remove from list</span>
     </button>
   </ng-container>
 

@@ -24,7 +24,7 @@ export class ActionButtonsComponent {
 
   utilitiesService = inject(UtilitiesService);
 
-  onAddClick() {
+  onAddListClick() {
     const bookList = this.booksLists().filter(bookList => bookList.name === this.value.list)[0]
 
     const dialogRef = this.utilitiesService.openDialog(
@@ -66,6 +66,13 @@ export class ActionButtonsComponent {
     this.buttonAction.emit({
       name: TableConsts.actionButton.edit,
       value: this.value,
+    });
+  }
+
+  removeFromList() {
+    this.buttonAction.emit({
+      name: TableConsts.actionButton.removeFromList,
+      value: { list: '', book: this.value },
     });
   }
 }
