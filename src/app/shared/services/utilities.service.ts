@@ -28,4 +28,12 @@ export class UtilitiesService {
 
     return dialogRef
   }
+
+  saveToLocalStorage(key: string, value: string) {
+    localStorage.setItem(key, value);
+  }
+
+  getLocalStorageItem(key: string) {
+    return localStorage.getItem(key);
+  }
 }

@@ -8,13 +8,13 @@ import { UtilitiesService } from 'src/app/shared/services/utilities.service';
 export class BookService {
   utilitiesService = inject(UtilitiesService);
 
-  booksJson = localStorage.getItem('books') as string;
+  booksJson = this.utilitiesService.getLocalStorageItem('books') as string;
   books = JSON.parse(this.booksJson);
   favBooks = this.books ? signal<Book[]>(this.books) : signal<Book[]>([]);
 
   saveBooks = computed(() => {
     const books = this.favBooks();
-    localStorage.setItem('books', JSON.stringify(books));
+    this.utilitiesService.saveToLocalStorage('books', JSON.stringify(books));
   })
 
   addBook(book: Book): void {

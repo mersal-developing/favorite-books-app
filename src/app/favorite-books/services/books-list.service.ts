@@ -8,13 +8,13 @@ import { UtilitiesService } from 'src/app/shared/services/utilities.service';
 export class BooksListService {
   utilitiesService = inject(UtilitiesService);
 
-  booksListJson = localStorage.getItem('books-list') as string;
+  booksListJson = this.utilitiesService.getLocalStorageItem('books-list') as string;
   booksList = JSON.parse(this.booksListJson);
   favBooksList = this.booksList ? signal<BookList[]>(this.booksList) : signal<BookList[]>([]);
 
   saveLists = computed(() => {
     const booksList = this.favBooksList();
-    localStorage.setItem('books-list', JSON.stringify(booksList));
+    this.utilitiesService.saveToLocalStorage('books-list', JSON.stringify(booksList));
   })
 
   addList(list: { name: string }) {
