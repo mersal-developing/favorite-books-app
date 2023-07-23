@@ -124,8 +124,8 @@ export class FavoriteBooksComponent {
   }
 
   filterBook(event: BookList) {
-    event && event.name && this.listFilter.set(event.name);
-    !event && this.listFilter.set('')
+    if(event) this.listFilter.set(event.name);
+    else this.listFilter.set('')
   }
 
 
