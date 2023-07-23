@@ -20,7 +20,7 @@
                         </ng-container>
 
                         <ng-template #actionTemplate>
-                            <app-action-buttons [value]="element"
+                            <app-action-buttons [value]="element" [booksLists]="booksLists"
                                 (buttonAction)="onTableAction($event)"></app-action-buttons>
                         </ng-template>
                     </td>

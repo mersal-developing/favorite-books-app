@@ -1,14 +1,15 @@
-import { Component, computed, inject } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { BooksListComponent } from './components/books-list/books-list.component';
 import { BookService } from './services/book.service';
 import { UtilitiesService } from '../shared/services/utilities.service';
-import { AddItemComponent } from './components/add-item/add-item.component';
+import { AddItemComponent } from '../shared/components/add-item/add-item.component';
 import { AbstractControl, ValidationErrors, Validators } from '@angular/forms';
 import { BooksListService } from './services/books-list.service';
 import { ListsComponent } from './components/lists/lists.component';
+import { BookList } from './types';
 
 @Component({
   selector: 'app-favorite-books',
@@ -30,8 +31,17 @@ export class FavoriteBooksComponent {
   booksService = inject(BookService);
   booksListService = inject(BooksListService);
 
+  listFilter = signal<string>('');
+
+  listName = computed(() => this.listFilter())
+
   books = computed(() => {
-    const books = this.booksService.favBooks();
+    let books;
+    if (this.listName()) {
+      books = this.booksService.getListBooks(this.listName())
+    } else {
+      books = this.booksService.favBooks();
+    }
     return books;
   })
 
@@ -108,6 +118,10 @@ export class FavoriteBooksComponent {
         this.booksListService.addList(res);
 
     });
+  }
+
+  filterBook(event: BookList) {
+    this.listFilter.set(event.name);
   }
 
 

@@ -1,25 +1,20 @@
-<ng-container *ngIf="isAddButton; else editTemplate">
-  <div class="demo-button-container">
-    <button mat-raised-button (click)="onAddClick()" class="demo-button">
-      Add data
+<mat-icon class="action-button" mat-icon-button [matMenuTriggerFor]="menu">more_vert</mat-icon>
+
+<mat-menu #menu="matMenu">
+  <button mat-menu-item (click)="onDeleteClick()">
+    <mat-icon>delete</mat-icon>
+    <span>Delete</span>
+  </button>
+  <button mat-menu-item (click)="onEditClick()">
+    <mat-icon>edit</mat-icon>
+    <span>Edit</span>
+  </button>
+
+  <ng-container *ngIf="booksLists().length > 0">
+    <button mat-menu-item (click)="onAddClick()">
+      <mat-icon>list</mat-icon>
+      <span>Add to list</span>
     </button>
-  </div>
+  </ng-container>
 
-</ng-container>
-
-<ng-template #editTemplate>
-  <mat-icon class="action-button" mat-icon-button [matMenuTriggerFor]="menu">more_vert</mat-icon>
-
-  <mat-menu #menu="matMenu">
-    <button mat-menu-item (click)="onDeleteClick()">
-      <mat-icon>delete</mat-icon>
-      <span>Delete</span>
-    </button>
-    <button mat-menu-item (click)="onEditClick()">
-      <mat-icon>edit</mat-icon>
-      <span>Edit</span>
-    </button>
-
-  </mat-menu>
-
-</ng-template>
+</mat-menu>

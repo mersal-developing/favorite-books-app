@@ -1,4 +1,4 @@
-import { Component, Input, Signal, inject } from '@angular/core';
+import { Component, Input, Signal, inject , computed} from '@angular/core';
 import { MatTableModule } from '@angular/material/table';
 import { CommonModule } from '@angular/common';
 import { Book, TableConsts } from '../../types';
@@ -6,8 +6,9 @@ import { ActionButtonsComponent } from '../action-buttons/action-buttons.compone
 import { BookService } from '../../services/book.service';
 import { UtilitiesService } from 'src/app/shared/services/utilities.service';
 import { Validators } from '@angular/forms';
-import { AddItemComponent } from '../add-item/add-item.component';
+import { AddItemComponent } from '../../../shared/components/add-item/add-item.component';
 import { MatCardModule } from '@angular/material/card';
+import { BooksListService } from '../../services/books-list.service';
 
 @Component({
   selector: 'app-books-list',
@@ -18,7 +19,12 @@ import { MatCardModule } from '@angular/material/card';
 })
 export class BooksListComponent {
   bookService = inject(BookService);
-  utilitiesService = inject(UtilitiesService)
+  listService = inject(BooksListService);
+  utilitiesService = inject(UtilitiesService);
+
+  booksLists = computed(() => {
+    return this.listService.favBooksList();
+  });
 
   @Input({ required: true }) books!: Signal<Book[]>;
 
@@ -88,6 +94,10 @@ export class BooksListComponent {
         });
 
         break;
+      }
+
+      case TableConsts.actionButton.addToList: {
+        !!event.value.list.name &&  this.bookService.updateBook({...event.value.book, list: event.value.list.name})
       }
     }
   }

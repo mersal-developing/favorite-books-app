@@ -7,7 +7,6 @@ export const TableConsts = {
     actionButton: {
         edit: 'edit',
         delete: 'delete',
-        view: 'view',
-        add: 'add'
+        addToList: 'add to list'
     },
 }

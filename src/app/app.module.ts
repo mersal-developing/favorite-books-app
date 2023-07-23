@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FavoriteBooksComponent } from './favorite-books/favorite-books.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatDialogComponent } from './shared/components/mat-dialog/mat-dialog.component';
 
 @NgModule({
@@ -22,7 +22,7 @@ import { MatDialogComponent } from './shared/components/mat-dialog/mat-dialog.co
     MatDialogModule,
     MatDialogComponent
   ],
-  providers: [],
+  providers: [{ provide: MatDialogRef, useValue: null },{ provide: MAT_DIALOG_DATA, useValue: {} },],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

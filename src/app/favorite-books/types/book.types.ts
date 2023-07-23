@@ -3,6 +3,7 @@ export interface Book {
     year: number;
     authorName: string;
     id: string;
+    list: string;
 }
 
 export interface BookList {

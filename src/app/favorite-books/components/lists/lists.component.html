@@ -1,7 +1,35 @@
-<mat-form-field>
-    <mat-label>Choose List</mat-label>
-    <mat-select (selectionChange)="changeList($event)" [(ngModel)]="selectedList">
-        <mat-option [value]="'all'">All</mat-option>
-        <mat-option *ngFor="let list of lists()" [value]="list">{{list.name}}</mat-option>
-    </mat-select>
-</mat-form-field>
+<ng-container *ngIf="!!data.lists; else normalList">
+
+
+    <div class="dialog-container">
+        <h1 mat-dialog-title class="dialog-header">{{heading}}</h1>
+
+
+        <mat-form-field>
+            <mat-label>Choose List</mat-label>
+            <mat-select (selectionChange)="changeList($event)" [(ngModel)]="selectedList">
+                <mat-option *ngFor="let list of lists()" [value]="list">{{list.name}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <div mat-dialog-actions class="action-buttons">
+            <button mat-raised-button mat-dialog-close (click)="close()" >cancel</button>
+            <button mat-raised-button mat-dialog-close cdkFocusInitial (click)="process(selectedList)"
+                color="primary">Ok</button>
+        </div>
+    </div>
+
+</ng-container>
+
+<ng-template #normalList>
+    <mat-form-field>
+        <mat-label>Choose List</mat-label>
+        <mat-select (selectionChange)="changeList($event)" [(ngModel)]="selectedList">
+            <mat-option [value]="'all'">All</mat-option>
+            <mat-option *ngFor="let list of lists()" [value]="list">{{list.name}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+</ng-template>
+
+
+

@@ -19,7 +19,7 @@ export class UtilitiesService {
   }
 
 
-  openDialog(data: any, panelClass: string, MatDialogComponent?: any) {
+  openDialog(data: any, panelClass?: string, MatDialogComponent?: any) {
     const dialogRef = this.dialog.open(MatDialogComponent, {
       width: '300px',
       data,

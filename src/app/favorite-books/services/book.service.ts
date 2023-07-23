@@ -42,4 +42,8 @@ export class BookService {
     this.utilitiesService.openSnackBar(`Book deleted succesfully`, 'ok', 'error-alert')
   }
 
+  getListBooks(listName: string) {
+   return  this.favBooks().filter(book => book.list === listName)
+  }
+
 }

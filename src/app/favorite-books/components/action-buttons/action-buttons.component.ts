@@ -1,21 +1,23 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
+import { Component, EventEmitter, Input, Output, inject, Signal } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
-import { Book, TableButtonAction, TableConsts } from '../../types';
+import { Book, BookList, TableButtonAction, TableConsts } from '../../types';
 import { UtilitiesService } from 'src/app/shared/services/utilities.service';
 import { MatDialogComponent } from 'src/app/shared/components/mat-dialog/mat-dialog.component';
+import { MatSelectModule } from '@angular/material/select';
+import { ListsComponent } from '../lists/lists.component';
 
 @Component({
   selector: 'app-action-buttons',
   templateUrl: './action-buttons.component.html',
   styleUrls: ['./action-buttons.component.scss'],
   standalone: true,
-  imports: [CommonModule, MatIconModule, MatMenuModule]
+  imports: [CommonModule, MatIconModule, MatMenuModule, MatSelectModule]
 })
 export class ActionButtonsComponent {
   @Input() value!: Book;
-  @Input() isAddButton = false;
+  @Input() booksLists!: Signal<BookList[]>;
 
   @Output() buttonAction: EventEmitter<TableButtonAction> =
     new EventEmitter<TableButtonAction>();
@@ -23,10 +25,23 @@ export class ActionButtonsComponent {
   utilitiesService = inject(UtilitiesService);
 
   onAddClick() {
+    const bookList = this.booksLists().filter(bookList => bookList.name === this.value.list)[0]
 
-    this.buttonAction.emit({
-      name: TableConsts.actionButton.add,
-    });
+    const dialogRef = this.utilitiesService.openDialog(
+      { lists: this.booksLists, heading: "Add Book To list", list: bookList },
+      'add-list-dialog',
+      ListsComponent
+    );
+
+    dialogRef.afterClosed().subscribe((res: any) => {
+      if (res !== 'all') {
+        this.buttonAction.emit({
+          name: TableConsts.actionButton.addToList,
+          value: { list: {...res}, book: this.value },
+        });
+      }
+    })
+
   }
 
   onDeleteClick() {
