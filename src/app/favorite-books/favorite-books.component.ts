@@ -83,7 +83,7 @@ export class FavoriteBooksComponent {
       form: {
         title: ['', Validators.required],
         year: [undefined, Validators.compose(
-          [Validators.required, this.numberValidator, Validators.minLength(4), Validators.maxLength(4)]
+          [Validators.required, Validators.minLength(4), Validators.maxLength(4), this.numberValidator, this.futureDateValidator]
         )],
         author_name: ['', Validators.required]
       },
@@ -101,6 +101,17 @@ export class FavoriteBooksComponent {
     if (isNaN(inputValue)) {
       return { notANumber: true };
     }
+    return null;
+  }
+
+  futureDateValidator(control: AbstractControl): ValidationErrors | null {
+    const selectedDate = new Date(control.value);
+    const currentDate = new Date();
+
+    if (selectedDate.getTime() > currentDate.getTime()) {
+      return { futureDate: true };
+    }
+
     return null;
   }
 
@@ -123,7 +134,7 @@ export class FavoriteBooksComponent {
   }
 
   filterBook(event: BookList) {
-    if(event) this.listFilter.set(event.name);
+    if (event) this.listFilter.set(event.name);
     else this.listFilter.set('')
   }
 
