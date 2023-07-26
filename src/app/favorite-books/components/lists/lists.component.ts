@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter,  Input, Output, Signal, inject } from '@angular/core';
+import { Component, EventEmitter, Input, Output, Signal, inject } from '@angular/core';
 import { BookList } from '../../types';
 import { MatSelectChange, MatSelectModule } from '@angular/material/select';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -7,7 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import {MatTooltipModule} from '@angular/material/tooltip';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { BooksListService } from '../../services/books-list.service';
 import { UtilitiesService } from 'src/app/shared/services/utilities.service';
 import { MatDialogComponent } from 'src/app/shared/components/mat-dialog/mat-dialog.component';

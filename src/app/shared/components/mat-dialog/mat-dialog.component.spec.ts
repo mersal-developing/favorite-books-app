@@ -8,8 +8,8 @@ describe('MatDialogComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [MatDialogComponent]
-    });
+    imports: [MatDialogComponent]
+});
     fixture = TestBed.createComponent(MatDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
