@@ -28,16 +28,20 @@ export class ActionButtonsComponent {
     const bookList = this.booksLists().filter(bookList => bookList.name === this.value.list)[0]
 
     const dialogRef = this.utilitiesService.openDialog(
-      { lists: this.booksLists, heading: "Add Book To list", list: bookList },
+      {
+        lists: this.booksLists,
+        heading: "Add Book To list",
+        list: bookList
+      },
       'add-list-dialog',
       ListsComponent
     );
 
-    dialogRef.afterClosed().subscribe((res: any) => {
+    dialogRef.afterClosed().subscribe((res: string | object | undefined) => {
       if (res !== 'all') {
         this.buttonAction.emit({
           name: ActionButtons.addToList,
-          value: { list: {...res}, book: this.value }
+          value: { list: res, book: this.value }
         });
       }
     })
@@ -46,12 +50,15 @@ export class ActionButtonsComponent {
 
   onDeleteClick() {
     const dialogRef = this.utilitiesService.openDialog(
-      { content: 'Are you sure you want to Delete?', heading: 'Delete' },
+      {
+        content: 'Are you sure you want to Delete?',
+        heading: 'Delete'
+      },
       'error-dialog',
       MatDialogComponent
     );
 
-    dialogRef.afterClosed().subscribe((res: any) => {
+    dialogRef.afterClosed().subscribe((res: string | undefined) => {
       if (res === 'yes') {
         this.buttonAction.emit({
           name: ActionButtons.delete,

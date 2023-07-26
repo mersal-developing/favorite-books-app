@@ -35,7 +35,7 @@ export class ListsComponent {
   bookListService = inject(BooksListService);
   utilitiesService = inject(UtilitiesService);
 
-  selectedList!: string;
+  selectedList!: string | BookList;
   heading!: string;
   bookList!: string;
 
@@ -47,9 +47,9 @@ export class ListsComponent {
   }
 
   constructor() {
-    this.lists = !!this.data.lists && this.data.lists;
-    this.heading = !!this.data.heading && this.data.heading;
-    this.bookList = !!this.data.list && this.data.list;
+    this.lists = this.data?.lists;
+    this.heading = this.data?.heading;
+    this.bookList = this.data?.list;
     this.selectedList = this.bookList ? this.bookList : 'all';
   }
 
@@ -57,21 +57,23 @@ export class ListsComponent {
     this.dialogRef.close();
   }
 
-  process(selectedList: any) {
+  process(selectedList: string | BookList) {
     this.dialogRef.close(selectedList);
   }
 
-  removeList(selectedList: any) {
-
+  removeList(selectedList: BookList | string) {
     const dialogRef = this.utilitiesService.openDialog(
-      { content: 'Are you sure you want to Delete?', heading: 'Delete' },
+      {
+        content: 'Are you sure you want to Delete?',
+        heading: 'Delete'
+      },
       'error-dialog',
       MatDialogComponent
     );
 
-    dialogRef.afterClosed().subscribe((res: any) => {
+    dialogRef.afterClosed().subscribe((res: undefined | string) => {
       if (res === 'yes') {
-        this.bookListService.removeList(selectedList.id);
+        if (typeof selectedList !== 'string') this.bookListService.removeList(selectedList.id);
         this.listChange.emit(undefined);
         this.selectedList = 'all';
       }

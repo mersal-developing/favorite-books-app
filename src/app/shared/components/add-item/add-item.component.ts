@@ -7,6 +7,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 
 import { CommonModule } from '@angular/common';
+import { FormElement } from 'src/app/favorite-books/types';
 
 @Component({
   selector: 'app-add-item',
@@ -22,12 +23,12 @@ export class AddItemComponent {
 
   title!: string;
   form!: FormGroup;
-  formElements: any = [];
+  formElements!: FormElement[];
 
   constructor() {
-    this.title = this.data.title;
-    this.formElements = this.data.formElements;
-    this.form = this.fb.group(this.data.form);
+    this.title = this.data?.title;
+    this.formElements = this.data?.formElements;
+    this.form = this.fb.group(this.data?.form);
   }
 
   close() {

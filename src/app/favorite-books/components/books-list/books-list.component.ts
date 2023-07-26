@@ -1,7 +1,7 @@
 import { Component, Input, Signal, inject, computed, ViewChild } from '@angular/core';
 import { MatTable, MatTableModule } from '@angular/material/table';
 import { CommonModule } from '@angular/common';
-import { Book, ActionButtons } from '../../types';
+import { Book, ActionButtons, TableButtonAction } from '../../types';
 import { ActionButtonsComponent } from '../action-buttons/action-buttons.component';
 import { BookService } from '../../services/book.service';
 import { UtilitiesService } from 'src/app/shared/services/utilities.service';
@@ -82,7 +82,7 @@ export class BooksListComponent {
 
   displayedColumns: string[] = this.initColumns.map((col) => col.name);
 
-  onTableAction(event: any) {
+  onTableAction(event: TableButtonAction) {
     switch (event.name) {
       case ActionButtons.delete: {
         this.bookService.deleteBook(event.value?.id);
@@ -114,7 +114,7 @@ export class BooksListComponent {
       }
 
       case ActionButtons.addToList: {
-        !!event.value.list.name && this.bookService.updateBook({ ...event.value.book, list: event.value.list.name });
+        event.value.list?.name && this.bookService.updateBook({ ...event.value.book, list: event.value.list.name });
         break;
       }
 
@@ -125,12 +125,11 @@ export class BooksListComponent {
     }
   }
 
-
   drop(event: CdkDragDrop<Book[]>) {
     const previousIndex = this.books().findIndex(row => row === event.item.data);
     moveItemInArray(this.books(), previousIndex, event.currentIndex);
     this.table.renderRows();
-    
+
     this.bookService.favBooks.set(this.books());
     this.bookService.saveBooks();
   }

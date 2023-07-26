@@ -18,8 +18,8 @@ export class MatDialogComponent {
 
   constructor(
   ) {
-    this.content = this.data.content;
-    this.heading = this.data.heading;
+    this.content = this.data?.content;
+    this.heading = this.data?.heading;
   }
 
   close() {

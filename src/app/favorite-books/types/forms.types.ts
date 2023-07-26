@@ -1,4 +1,4 @@
-export interface FormElements {
-    name: any;
+export interface FormElement {
+    name: string | number | null;
     placeHolder: string;
 }

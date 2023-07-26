@@ -32,7 +32,8 @@
         </mat-form-field>
 
         <ng-container *ngIf="selectedList !== 'all'">
-            <mat-icon color="warn" class="delete-icon" matTooltip="remove list" (click)="removeList(selectedList)">delete</mat-icon>
+            <mat-icon color="warn" class="delete-icon" matTooltip="remove list"
+                (click)="removeList(selectedList)">delete</mat-icon>
         </ng-container>
     </div>
 </ng-template>
