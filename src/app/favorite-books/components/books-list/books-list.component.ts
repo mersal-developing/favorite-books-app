@@ -1,7 +1,7 @@
 import { Component, Input, Signal, inject, computed, ViewChild } from '@angular/core';
 import { MatTable, MatTableModule } from '@angular/material/table';
 import { CommonModule } from '@angular/common';
-import { Book, TableConsts } from '../../types';
+import { Book, ActionButtons } from '../../types';
 import { ActionButtonsComponent } from '../action-buttons/action-buttons.component';
 import { BookService } from '../../services/book.service';
 import { UtilitiesService } from 'src/app/shared/services/utilities.service';
@@ -84,12 +84,12 @@ export class BooksListComponent {
 
   onTableAction(event: any) {
     switch (event.name) {
-      case TableConsts.actionButton.delete: {
+      case ActionButtons.delete: {
         this.bookService.deleteBook(event.value?.id);
         break;
       }
 
-      case TableConsts.actionButton.edit: {
+      case ActionButtons.edit: {
         const dialogRef = this.utilitiesService.openDialog(
           {
             title: 'Edit Book',
@@ -113,12 +113,12 @@ export class BooksListComponent {
         break;
       }
 
-      case TableConsts.actionButton.addToList: {
+      case ActionButtons.addToList: {
         !!event.value.list.name && this.bookService.updateBook({ ...event.value.book, list: event.value.list.name });
         break;
       }
 
-      case TableConsts.actionButton.removeFromList: {
+      case ActionButtons.removeFromList: {
         this.bookService.updateBook({ ...event.value.book, list: '' });
         break;
       }

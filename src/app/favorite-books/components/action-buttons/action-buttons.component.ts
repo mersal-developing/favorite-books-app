@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output, inject, Signal } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
-import { Book, BookList, TableButtonAction, TableConsts } from '../../types';
+import { Book, BookList, TableButtonAction, ActionButtons } from '../../types';
 import { UtilitiesService } from 'src/app/shared/services/utilities.service';
 import { MatDialogComponent } from 'src/app/shared/components/mat-dialog/mat-dialog.component';
 import { MatSelectModule } from '@angular/material/select';
@@ -36,8 +36,8 @@ export class ActionButtonsComponent {
     dialogRef.afterClosed().subscribe((res: any) => {
       if (res !== 'all') {
         this.buttonAction.emit({
-          name: TableConsts.actionButton.addToList,
-          value: { list: {...res}, book: this.value },
+          name: ActionButtons.addToList,
+          value: { list: {...res}, book: this.value }
         });
       }
     })
@@ -54,7 +54,7 @@ export class ActionButtonsComponent {
     dialogRef.afterClosed().subscribe((res: any) => {
       if (res === 'yes') {
         this.buttonAction.emit({
-          name: TableConsts.actionButton.delete,
+          name: ActionButtons.delete,
           value: this.value,
         });
       }
@@ -64,14 +64,14 @@ export class ActionButtonsComponent {
   onEditClick() {
 
     this.buttonAction.emit({
-      name: TableConsts.actionButton.edit,
+      name: ActionButtons.edit,
       value: this.value,
     });
   }
 
   removeFromList() {
     this.buttonAction.emit({
-      name: TableConsts.actionButton.removeFromList,
+      name: ActionButtons.removeFromList,
       value: { list: '', book: this.value },
     });
   }

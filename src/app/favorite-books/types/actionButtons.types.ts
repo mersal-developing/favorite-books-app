@@ -3,11 +3,9 @@ export interface TableButtonAction {
     value?: any
 }
 
-export const TableConsts = {
-    actionButton: {
-        edit: 'edit',
-        delete: 'delete',
-        addToList: 'add to list',
-        removeFromList: 'remove from list'
-    },
+export enum ActionButtons {
+    edit = 'edit',
+    delete = 'delete',
+    addToList = 'add to list',
+    removeFromList = 'remove from list'
 }
